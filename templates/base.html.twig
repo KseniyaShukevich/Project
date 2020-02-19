@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Викторина{% endblock %}</title>
+        {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        {% block header %}
+            <div class="header">
+                <div class="contentSize">
+                    <span id="siteName">Викторина</span>
+                    <div class="table">
+                        <table class="headerTable">
+                            <tr>
+                                    <td class="option">
+                                        Рейтинг
+                                    </td>
+                                {% if app.user %}
+                                    <td class="option">
+                                        Начать
+                                    </td>
+                                    <td class="option">
+                                        <a href="{{ path('app_logout') }}">Выйти</a>
+                                    </td>
+                                {% else %}
+                                    <td class="option">
+                                        <a href="{{ path('app_login') }}">Войти</a>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+        <div class="text">
+        {% block content %}
+        {% endblock %}
+        </div>
+        {% block footer %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
