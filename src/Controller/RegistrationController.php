@@ -11,16 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class RegistrationController extends AbstractController
 {
-    private $session;
-    public function __construct(SessionInterface $session)
-    {
-        $this->$session = $session;
-    }
-
     /**
      * @Route("/register", name="app_register")
      * @param Request $request
