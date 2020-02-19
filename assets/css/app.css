@@ -1,0 +1,60 @@
+body {
+    background-image: url("images/background.jpg");
+    background-size: cover;
+}
+.header{
+    position: fixed;
+    background-color: black;
+    height: 80px;
+    width: 100%;
+    margin: -100px -8px -8px;
+}
+.contentSize{
+    width: 70%;
+    margin: auto;
+    min-width: 300px;
+    max-width: 1000px;
+}
+.table{
+    float: right;
+}
+.option{
+    color: gainsboro;
+    padding: 25px;
+}
+#siteName{
+    display: block;
+    float: left;
+    padding: 15px 15px 15px 25px;
+    color: gainsboro;
+    font-size: 200%;
+}
+.text{
+    padding: 80px 0px 120px;
+    color: gainsboro;
+    height: auto;
+    width: 70%;
+    margin: 100px auto;
+    min-width: 300px;
+    max-width: 1000px;
+    background-image: url("images/backgroundBlack.jpg");
+    background-size: cover;
+}
+h1{
+    color: #50c878;
+    text-align: center;
+}
+p{
+    width: 75%;
+    margin: auto;
+    text-indent: 40px;
+    text-align: justify;
+    padding-bottom: 30px;
+}
+a{
+    text-decoration: none;
+    color: gainsboro;
+}
+a:hover{
+    color: #50c878;
+}

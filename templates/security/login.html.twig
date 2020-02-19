@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вход!{% endblock %}
+    {% block stylesheets %}
+         {{ parent() }}
+        {{ encore_entry_link_tags('form') }}
+    {% endblock %}
+
+{% block content %}
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% else %}
+        <div class="log">
+        <h1>Авторизация</h1>
+            <table class="tableForm">
+                <tr>
+                    <td>
+                        <label for="inputEmail">Email</label>
+                    </td>
+                    <td>
+                        <label for="inputPassword">Password</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                    </td>
+                    <td>
+                        <input type="password" name="password" id="inputPassword" class="form-control" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a id="linkRegistration" href="{{ path('app_register') }}">Регистрация</a>
+                    </td>
+                    <td>
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+                <button class="submit" type="submit">
+                    Войти
+                </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        </form>
+    {% endif %}
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+
+
+{% endblock %}
