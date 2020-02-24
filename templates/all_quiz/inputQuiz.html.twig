@@ -1,0 +1,31 @@
+{% for quiz in quizs %}
+    <tr>
+        <td>
+            <br>
+            <a href="{{ path('questions', {idQuiz: quiz.id}) }}">{{ quiz.name }}</a>
+        </td>
+        <td>
+            <br>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('edit-quiz-name', {id: quiz.id}) }}">Редактировать название</a>
+            {% endif %}
+        </td>
+        <td>
+            <br>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('edit-quizs', {id: quiz.id}) }}">Вопросы</a>
+            {% endif %}
+        </td>
+        <td>
+            <br>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="#" class="deleteButton" data-id="{{ quiz.id }}">Удалить</a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Id: {{ quiz.id }}
+        </td>
+    </tr>
+{% endfor %}

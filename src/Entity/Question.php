@@ -28,6 +28,11 @@ class Question
      */
     private $answers;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $idQuiz;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -77,6 +82,18 @@ class Question
                 $answer->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIdQuiz(): ?int
+    {
+        return $this->idQuiz;
+    }
+
+    public function setIdQuiz(int $idQuiz): self
+    {
+        $this->idQuiz = $idQuiz;
 
         return $this;
     }

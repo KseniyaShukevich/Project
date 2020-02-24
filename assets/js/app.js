@@ -12,3 +12,35 @@ import '../css/app.css';
 // import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+
+const quizs = document.getElementById('quizs');
+
+if (quizs){
+    quizs.addEventListener('click', e => {
+        if (e.target.className === 'deleteButton') {
+            if (confirm('Вы уверены, что хотите удалить?')){
+                const id = e.target.getAttribute('data-id');
+
+                fetch(`/quiz_delete/${id}`, {
+                    method: 'DELETE'
+                }).then(res => window.location.reload());
+            }
+        }
+    });
+}
+
+const questions = document.getElementById('questions');
+
+if (questions){
+    questions.addEventListener('click', e => {
+        if (e.target.className === 'deleteButton') {
+            if (confirm('Вы уверены, что хотите удалить?')){
+                const id = e.target.getAttribute('data-id');
+
+                fetch(`/question_delete/${id}`, {
+                    method: 'DELETE'
+                }).then(res => window.location.reload());
+            }
+        }
+    });
+}

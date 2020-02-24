@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Все викторины{% endblock %}
+ {% block stylesheets %}
+         {{ parent() }}
+         {{ encore_entry_link_tags('form') }}
+ {% endblock %}
+
+{% block content %}
+<h1>Выбери викторину!</h1>
+        <table id="quizs" class="tableForm">
+            {% include 'all_quiz/inputQuiz.html.twig' %}
+        </table>
+{% endblock %}

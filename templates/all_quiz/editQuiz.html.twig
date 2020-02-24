@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование вопросов{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('form') }}
+{% endblock %}
+
+{% block content %}
+    <div class="log">
+        {% for quiz in quizs %}
+        <h1>{{quiz.name}}</h1>
+        {% endfor %}
+        <table id="questions" class="tableForm">
+            {% for question in questions %}
+            <tr>
+                <td>
+                    <a href="{{ path('answers-to-question', { id: question.id }) }}"> {{ question.text }} </a>
+                </td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                   <a href="#" class="deleteButton" data-id="{{ question.id }}">Удалить</a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('edit-question', {idQuiz: quiz.id, id: question.id}) }}">Редактировать</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

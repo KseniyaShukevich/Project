@@ -12,3 +12,20 @@ import '../css/form.css';
 // import $ from 'jquery';
 
 console.log('Hello Webpack Encore! Edit me in assets/js/form.js');
+
+
+const questions = document.getElementById('questions');
+
+if (questions){
+    questions.addEventListener('click', e => {
+        if (e.target.className === 'deleteButton') {
+            if (confirm('Вы уверены, что хотите удалить?')){
+                const id = e.target.getAttribute('data-id');
+
+                fetch(`/question_delete/${id}`, {
+                    method: 'DELETE'
+                }).then(res => window.location.reload());
+            }
+        }
+    });
+}

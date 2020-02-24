@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание вопросов{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('form') }}
+{% endblock %}
+
+{% block content %}
+    <div class="log">
+        <h1>Название викторины</h1>
+        {{ form_start(form) }}
+        <table class="tableForm">
+            <tr>
+                <td>
+                    {{ form_label(form.name, 'Название') }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.name) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_row(form.isActive) }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="submit">Сохранить</button>
+                </td>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

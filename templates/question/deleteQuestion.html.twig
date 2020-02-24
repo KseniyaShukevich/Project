@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Удаление вопросов{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('form') }}
+{% endblock %}
+
+{% block content %}
+    <div class="log">
+        <h1>Удаление вопросов</h1>
+        <form method="post">
+            <table class="tableForm">
+                <tr>
+                    <td>
+                        <button class="submit">Сохранить</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <table class="tableForm">
+      {# {% include 'all_quiz/inputQuiz.html.twig' %}#}
+    </table>
+{% endblock %}

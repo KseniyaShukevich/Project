@@ -15,12 +15,14 @@
                     <div class="table">
                         <table class="headerTable">
                             <tr>
+                                {% if is_granted('ROLE_ADMIN') %}
                                     <td class="option">
-                                        Рейтинг
+                                    <a href="{{ path('admin') }}">Добавить</a>
                                     </td>
+                                {% endif %}
                                 {% if app.user %}
                                     <td class="option">
-                                        Начать
+                                        <a href="{{ path('all_quizs') }}">Начать</a>
                                     </td>
                                     <td class="option">
                                         <a href="{{ path('app_logout') }}">Выйти</a>
@@ -41,6 +43,8 @@
         {% endblock %}
         </div>
         {% block footer %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
     </body>
 </html>

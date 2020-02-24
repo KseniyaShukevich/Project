@@ -2,67 +2,69 @@
 
 namespace App\Repository;
 
-use App\Entity\Question;
+use App\Entity\Quiz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\Types\Integer;
 
 /**
- * @method Question|null find($id, $lockMode = null, $lockVersion = null)
- * @method Question|null findOneBy(array $criteria, array $orderBy = null)
- * @method Question[]    findAll()
- * @method Question[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Quiz|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Quiz|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Quiz[]    findAll()
+ * @method Quiz[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class QuestionRepository extends ServiceEntityRepository
+class QuizRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Question::class);
+        parent::__construct($registry, Quiz::class);
     }
 
-    public function getQuestion($idQuiz): array
+    /**
+     * @return quiz[]
+     */
+    public function findAllActive(): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
             'SELECT q
-            FROM App\Entity\Question q
-            WHERE q.idQuiz = :idQuiz
-            ORDER BY q.text ASC'
-        )->setParameter('idQuiz', $idQuiz);
+            FROM App\Entity\Quiz q
+            WHERE q.isActive = 1
+            ORDER BY q.name ASC'
+        )/*->setParameter('activeState', $active)*/;
         return $query->getResult();
     }
 
-    public function allQuizQuestions($id): array
+    /**
+     * @param $idQuiz
+     * @return array
+     */
+    public function quizName($idQuiz): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT q
-            FROM App\Entity\Question q
-            WHERE q.idQuiz = :idQuiz'
-        )->setParameter('idQuiz', $id);
+            'SELECT q.name
+            FROM App\Entity\Quiz q
+            WHERE q.id = :idQuiz'
+        )->setParameter('idQuiz', $idQuiz);
         return $query->getResult();
     }
 
-  /*  public function getIqQuestion($idQuiz): array
+    public function quizQuestions($idQuiz): array
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT id
+            'SELECT q.text, q.id
             FROM App\Entity\Question q
             WHERE q.idQuiz = :idQuiz'
         )->setParameter('idQuiz', $idQuiz);
-
-        // returns an array of Product objects
         return $query->getResult();
     }
- */
-
 
     // /**
-    //  * @return Question[] Returns an array of Question objects
+    //  * @return Quiz[] Returns an array of Quiz objects
     //  */
     /*
     public function findByExampleField($value)
@@ -79,7 +81,7 @@ class QuestionRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Question
+    public function findOneBySomeField($value): ?Quiz
     {
         return $this->createQueryBuilder('q')
             ->andWhere('q.exampleField = :val')

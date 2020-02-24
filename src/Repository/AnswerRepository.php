@@ -19,6 +19,49 @@ class AnswerRepository extends ServiceEntityRepository
         parent::__construct($registry, Answer::class);
     }
 
+    /*public function getAnswer($idQuestion): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\answer a
+            WHERE a.question = :idQuestion'
+        )->setParameter('idQuestion', $idQuestion);
+        return $query->getResult();
+    }*/
+
+    public function getAnswer($idQuestion): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\answer a
+            WHERE a.question = :idQuestion'
+        )->setParameter('idQuestion', $idQuestion);
+        return $query->getResult();
+    }
+
+    /**
+     * @param $idQuestion
+     * @return answer[]
+     */
+    public function findAllAnswers($idQuestion): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Answer a
+            WHERE a.idQuestion = :idQuestion
+            ORDER BY a.text ASC'
+        )->setParameter('idQuestion', $idQuestion);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     // /**
     //  * @return Answer[] Returns an array of Answer objects
     //  */

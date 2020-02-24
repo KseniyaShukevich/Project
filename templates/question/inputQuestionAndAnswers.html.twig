@@ -1,0 +1,19 @@
+{% for question in questions %}
+        <tr>
+            <td>
+                <br>
+                <h1>{{ question.text }}</h1>
+              {% include 'answer/index.html.twig' %}
+            </td>
+        </tr>
+{% endfor %}
+<tr>
+    <td>
+        <button class="submit"  style="margin-bottom: 50px">Ответить</button>
+    </td>
+</tr>
+<tr>
+    <td>
+        {{ knp_pagination_render(questions) }}
+    </td>
+</tr>

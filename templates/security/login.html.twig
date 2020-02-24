@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Вход!{% endblock %}
+{% block title %}Вход{% endblock %}
     {% block stylesheets %}
          {{ parent() }}
         {{ encore_entry_link_tags('form') }}
@@ -13,8 +13,14 @@
     {% endif %}
 
     {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        <div class="log">
+            <table class="tableForm">
+                <tr>
+                    <td>
+                         Вы вошли как {{ app.user.fullname }}, <a href="{{ path('app_logout') }}">Выйти</a>
+                    </td>
+                </tr>
+            </table>
         </div>
     {% else %}
         <div class="log">

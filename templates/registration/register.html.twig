@@ -25,6 +25,7 @@
                 </td>
                 <td>
                     {{ form_widget(registrationForm.email) }}
+                  {#  {{ form_errors(registrationForm.email) }}#}
                 </td>
             </tr>
             <tr>
@@ -35,12 +36,16 @@
             <tr>
                 <td>
                     {{ form_widget(registrationForm.plainPassword) }}
+                   {# {{ form_errors(registrationForm.plainPassword) }}#}
                 </td>
-                <td></td>
+                <td>
+                    {{ form_errors(registrationForm.email) }}
+                    {{ form_errors(registrationForm.plainPassword) }}
+                </td>
             </tr>
             <tr>
                 <td>
-                    {{ form_row(registrationForm.agreeTerms, {'label': 'Принимаю'}) }}
+                    {{ form_row(registrationForm.agreeTerms, {'label': 'Принимаю условия'}) }}
                 </td>
                 <td>
                     <button class="submit">Зарегистрироваться</button>

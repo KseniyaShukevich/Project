@@ -14,7 +14,7 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
       /*  $question = new Question();
         $question->setText('How are you?');
 

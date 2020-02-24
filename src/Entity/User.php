@@ -40,9 +40,16 @@ class User implements UserInterface
      */
     private $fullname;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid('', true));
     }
 
     public function getEmail(): ?string
@@ -126,6 +133,18 @@ class User implements UserInterface
     public function setFullname(string $fullname): self
     {
         $this->fullname = $fullname;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
