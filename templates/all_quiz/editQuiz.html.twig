@@ -9,9 +9,7 @@
 
 {% block content %}
     <div class="log">
-        {% for quiz in quizs %}
-        <h1>{{quiz.name}}</h1>
-        {% endfor %}
+                <h1>{{ quiz.name }}</h1>
         <table id="questions" class="tableForm">
             {% for question in questions %}
             <tr>

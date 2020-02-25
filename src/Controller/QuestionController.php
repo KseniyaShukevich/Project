@@ -19,32 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class QuestionController extends AbstractController
 {
-
-  //  /**
-  //   * @Route("/questions", name="questions")
-  //   */
-  /*  public function index()
-    {
-        $questions = $this->getDoctrine()
-            ->getRepository(Question::class)
-            ->question(1);
-
-        $answers = $this->getDoctrine()
-            ->getRepository(Answer::class)
-            ->getAnswers(1);
-
-        $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
-
-
-        return $this->render('question/index.html.twig', [
-            'controller_name' => 'QuestionController',
-            'form' => $form->createView(),
-            'questions' => $questions,
-            'answers' => $answers,
-        ]);
-    }*/
-
     /**
      * @Route("/questions_create/admin", name="create-questions")
      * @param EntityManagerInterface $entityManager
@@ -114,9 +88,6 @@ class QuestionController extends AbstractController
 
         $entityManager->remove($question);
         $entityManager->flush();
-
-        $response = new Response();
-        $response->send();
     }
 
     /**
@@ -133,9 +104,9 @@ class QuestionController extends AbstractController
 
         $questionRepository = $entityManager->getRepository(Question::class);
 
-        $quizs = $this->getDoctrine()
+        $quiz = $this->getDoctrine()
             ->getRepository(Quiz::class)
-            ->quizName($idQuiz);
+            ->find($idQuiz);
 
         $allQuestionQuery = $questionRepository->createQueryBuilder('q')
             ->where("q.idQuiz = $idQuiz")
@@ -147,23 +118,11 @@ class QuestionController extends AbstractController
             1
         );
 
-
-
-     /*   $result = new Result();
-        $form = $this->createForm(ResultType::class, $result);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()){
-
-        }*/
-
-
-
         return $this->render('question/index.html.twig', [
             'controller_name' => 'QuestionController',
             'questions' => $questions,
             'AnswerCollection' => ArrayCollection::class,
-            'quizs'=> $quizs,
+            'quiz'=> $quiz,
         ]);
     }
 
@@ -176,7 +135,6 @@ class QuestionController extends AbstractController
      */
     public function editQuiz(Request $request, $id, EntityManagerInterface $entityManager, $idQuiz)
     {
-
         $quizs = $this->getDoctrine()
             ->getRepository(Quiz::class)
             ->findAllActive();
@@ -190,7 +148,7 @@ class QuestionController extends AbstractController
         $form = $this->createForm(QuestionType::class, $question);
         $form->handleRequest($request);
 
-        $questionRepository = $entityManager
+        $entityManager
             ->getRepository(Question::class);
 
         if ($form->isSubmitted()){
@@ -210,24 +168,4 @@ class QuestionController extends AbstractController
                 'quizs'=> $quizs,
             ]);
     }
-  /*  public function index()
-    {
-        $questions = $this->getDoctrine()
-            ->getRepository(Question::class);
-
-        $answers = $this->getDoctrine()
-            ->getRepository(Answer::class)
-            ->getAnswer(1);
-
-        $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
-
-
-        return $this->render('question/index.html.twig', [
-            'controller_name' => 'QuestionController',
-            'form' => $form->createView(),
-            'questions' => $questions,
-            'answers' => $answers,
-        ]);
-    }*/
 }

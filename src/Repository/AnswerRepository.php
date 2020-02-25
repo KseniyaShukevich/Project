@@ -19,18 +19,6 @@ class AnswerRepository extends ServiceEntityRepository
         parent::__construct($registry, Answer::class);
     }
 
-    /*public function getAnswer($idQuestion): array
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\answer a
-            WHERE a.question = :idQuestion'
-        )->setParameter('idQuestion', $idQuestion);
-        return $query->getResult();
-    }*/
-
     public function getAnswer($idQuestion): array
     {
         $entityManager = $this->getEntityManager();
@@ -58,36 +46,6 @@ class AnswerRepository extends ServiceEntityRepository
             ORDER BY a.text ASC'
         )->setParameter('idQuestion', $idQuestion);
 
-        // returns an array of Product objects
         return $query->getResult();
     }
-
-    // /**
-    //  * @return Answer[] Returns an array of Answer objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Answer
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

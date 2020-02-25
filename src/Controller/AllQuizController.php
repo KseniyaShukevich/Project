@@ -6,9 +6,6 @@ use App\Entity\Question;
 use App\Entity\Quiz;
 use App\Form\QuizType;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +49,7 @@ class AllQuizController extends AbstractController
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $quiz = $form->getData();
 
@@ -71,59 +68,6 @@ class AllQuizController extends AbstractController
             ]
         );
     }
-
-  /*  public function getQuestions($idQuiz, EntityManagerInterface $entityManager, Request $request, PaginatorInterface $paginator)
-    {
-        $questionRepository = $entityManager
-            ->getRepository(Question::class);
-
-        $quizs = $this->getDoctrine()
-            ->getRepository(Quiz::class)
-            ->quizName($idQuiz);
-
-        $questions = $this->getDoctrine()
-            ->getRepository(Quiz::class)
-            ->quizQuestions($idQuiz);
-
-      /*  $allQuestionQuery = $questionRepository->createQueryBuilder('q')
-            ->where("q.idQuiz = $idQuiz")
-            ->getQuery();
-
-        $questions = $paginator->paginate(
-            $allQuestionQuery,
-            $request->query->getInt('page', 1),
-            1
-        );*/
-
-     /*   return $this->render(
-            'all_quiz/editQuiz.html.twig',
-            [
-                'controller_name' => 'AllQuizController',
-                'idQuiz'=>$idQuiz,
-              //  'questions'=>$questions,
-                'quizs'=>$quizs,
-                'questions'=>$questions,
-            ]);*/
-      /*  $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        $quizs = $this->getDoctrine()
-            ->getRepository(Quiz::class)
-            ->quizName($idQuiz);
-
-      //  $quizs->createQueryBuilder('name')
-      //      ->where("q.idQuiz = $idQuiz");
-
-      //  $quiz = $this->$quizs->getQuery();
-
-        return $this->render(
-            'all_quiz/editQuiz.html.twig',
-            [
-                'controller_name' => 'AllQuizController',
-              //  'idQuiz'=>$idQuiz,
-                'quizs'=>$quizs,
-            ]
-        );*/
-    //}
 
     /**
      * @Route("/quiz_delete/{id}", methods={"DELETE"})
@@ -153,9 +97,6 @@ class AllQuizController extends AbstractController
 
         $entityManager->remove($quiz);
         $entityManager->flush();
-
-        $response = new Response();
-        $response->send();
     }
 
     /**
@@ -167,26 +108,18 @@ class AllQuizController extends AbstractController
      */
     public function editQuiz(Request $request, $id, EntityManagerInterface $entityManager)
     {
-        $quiz = new Quiz();
         $quiz = $this->getDoctrine()
             ->getRepository(Quiz::class)
             ->find($id);
 
-        $quizs = $this->getDoctrine()
-            ->getRepository(Quiz::class)
-            ->quizName($id);
-
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
-
-        $questionRepository = $entityManager
-            ->getRepository(Question::class);
 
         $questions = $this->getDoctrine()
             ->getRepository(Quiz::class)
             ->quizQuestions($id);
 
-        if ($form->isSubmitted()){
+        if ($form->isSubmitted() && $form->isValid()){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
@@ -197,7 +130,6 @@ class AllQuizController extends AbstractController
             [
                 'controller_name' => 'AllQuizController',
                 'quiz'=>$quiz,
-                'quizs'=>$quizs,
                 'questions'=>$questions,
             ]);
     }
@@ -218,7 +150,7 @@ class AllQuizController extends AbstractController
         $form = $this->createForm(QuizType::class, $quiz);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()){
+        if ($form->isSubmitted() && $form->isValid()){
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 

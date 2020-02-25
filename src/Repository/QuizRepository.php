@@ -20,19 +20,18 @@ class QuizRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param bool $includeUnavailableProducts
      * @return quiz[]
      */
-    public function findAllActive(): array
+    public function findAllActive($includeUnavailableProducts = false): array
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('q')
+            ->where('q.isActive = 1')
+            ->orderBy('q.name', 'ASC');
 
-        $query = $entityManager->createQuery(
-            'SELECT q
-            FROM App\Entity\Quiz q
-            WHERE q.isActive = 1
-            ORDER BY q.name ASC'
-        )/*->setParameter('activeState', $active)*/;
-        return $query->getResult();
+        $query = $qb->getQuery();
+
+        return $query->execute();
     }
 
     /**
@@ -62,33 +61,4 @@ class QuizRepository extends ServiceEntityRepository
         )->setParameter('idQuiz', $idQuiz);
         return $query->getResult();
     }
-
-    // /**
-    //  * @return Quiz[] Returns an array of Quiz objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('q.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Quiz
-    {
-        return $this->createQueryBuilder('q')
-            ->andWhere('q.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

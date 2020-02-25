@@ -9,9 +9,7 @@
 
 {% block content %}
 <table class="tableForm">
-    {% for quiz in quizs %}
         <h1>{{quiz.name}}</h1>
-    {% endfor %}
     {% include 'question/inputQuestionAndAnswers.html.twig' %}
 </table>
 {% endblock %}

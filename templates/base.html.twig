@@ -15,9 +15,12 @@
                     <div class="table">
                         <table class="headerTable">
                             <tr>
+                                <td class="option">
+                                    <a href="{{ path('home') }}">Главная</a>
+                                </td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <td class="option">
-                                    <a href="{{ path('admin') }}">Добавить</a>
+                                    <a href="{{ path('admin') }}">Редактировать</a>
                                     </td>
                                 {% endif %}
                                 {% if app.user %}
